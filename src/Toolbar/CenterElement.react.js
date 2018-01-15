@@ -21,12 +21,14 @@ const propTypes = {
         titleText: Text.propTypes.style,
     }),
     centerElement: PropTypes.node,
+    centerElementLines: PropTypes.number,
     onPress: PropTypes.func,
     onSearchTextChange: PropTypes.func.isRequired,
 };
 const defaultProps = {
     onPress: null,
     centerElement: null,
+    centerElementLines: 1,
     searchable: null,
     style: {},
 };
@@ -103,7 +105,7 @@ class CenterElement extends PureComponent {
     }
     render() {
         const {
-            searchable, centerElement, onPress, onSearchTextChange, searchValue,
+            searchable, centerElement, centerElementLines, onPress, onSearchTextChange, searchValue,
         } = this.props;
         const { opacityValue, isSearchActive } = this.state;
         const styles = getStyles(this.props, this.context, this.state);
@@ -136,7 +138,7 @@ class CenterElement extends PureComponent {
             );
         } else if (typeof centerElement === 'string') {
             content = (
-                <Text numberOfLines={1} style={styles.titleText}>
+                <Text numberOfLines={centerElementLines} style={styles.titleText}>
                     {centerElement}
                 </Text>
             );
