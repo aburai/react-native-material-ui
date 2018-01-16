@@ -35,6 +35,7 @@ const propTypes = {
     * Inline style of avatar
     */
     style: PropTypes.shape({
+        main: ViewPropTypes.style,
         container: ViewPropTypes.style,
         content: Text.propTypes.style,
     }),
@@ -58,6 +59,10 @@ function getStyles(props, context) {
 
     const local = {};
 
+    local.main = {
+        flexGrow: 1
+    };
+
     if (size) {
         local.container = {
             height: size,
@@ -67,6 +72,10 @@ function getStyles(props, context) {
     }
 
     return {
+        main: [
+            local.main,
+            props.style.main,
+        ],
         container: [
             avatar.container,
             local.container,
@@ -100,10 +109,9 @@ class Avatar extends PureComponent {
             content = image;
         }
 
-
         return (
-            <View style={{ flexGrow: 1 }}>
-                <View style={styles.container} >
+            <View style={styles.main}>
+                <View style={styles.container}>
                     {content}
                 </View>
             </View>
